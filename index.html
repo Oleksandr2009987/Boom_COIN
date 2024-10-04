@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб-клікер з промокодом</title>
+    <link href="https://fonts.googleapis.com/css2?family=Code+Pro:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: white;
+            font-family: 'Code Pro', sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            font-size: 64px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff6600, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 28px;
+            margin: 20px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6a0dad, #a86bb1);
+            color: white;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        #promoContainer {
+            margin-top: 40px;
+        }
+
+        input {
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 2px solid #ffcc00;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .coin-icon {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.2s;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .social-icon {
+            position: fixed;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s; /* Плавна анімація для збільшення */
+        }
+
+        .telegram-icon { top: 20px; }
+        .discord-icon { top: 80px; }
+        .youtube-icon { top: 140px; }
+
+        #premiumMenu {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 40px;
+        }
+
+        #premiumMenu h3 {
+            margin-bottom: 20px;
+        }
+
+        #stretchable {
+            height: 200vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .content-container {
+            padding-bottom: 40px;
+        }
+
+        /* Стиль для інформаційної іконки */
+        #infoIcon {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        /* Стиль для інформаційного повідомлення */
+        #infoMessage {
+            display: none;
+            position: fixed;
+            left: 50%;
+            bottom: -100px; /* Сховано за межами екрану */
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            transform: translateX(-50%);
+            transition: bottom 0.5s ease-in-out; /* Анімація для появи */
+            z-index: 1001;
+        }
+
+        /* Збільшення іконок при наведенні */
+        .social-icon:hover {
+            transform: scale(1.1); /* Збільшення на 10% */
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-text">Boom Coin!</div>
+
+    <div class="container" id="stretchable">
+        <div class="content-container">
+            <button id="clickButton">BOOM COIN</button>
+            <div id="score" style="font-size: 24px; margin-top: 20px;">
+                Кількість монет: <span id="coinCount">0</span> <img src="https://pngimg.com/uploads/coin/coin_PNG36907.png" class="coin-icon" id="coinIcon" alt="Coin Icon">
+            </div>
+            <div id="remainingClicks" style="font-size: 24px; margin-top: 20px;">500</div>
+
+            <div id="promoContainer">
+                <input type="text" id="promoCodeInput" placeholder="Введіть промокод">
+                <button id="promoButton">Активувати промокод</button>
+            </div>
+        </div>
+
+        <div id="premiumMenu">
+            <h3>Купити Premium</h3>
+            <button id="buyPremiumButton">Придбати за 1000 монет</button>
+            <button id="buyPremiumPlusButton">Придбати Plus за 5000 монет</button>
+        </div>
+    </div>
+
+    <a href="https://t.me/BoomCointg" target="_blank">
+        <img src="https://th.bing.com/th/id/OIP.-SuPUHwvPPFtqELxpC4VIAAAAA?rs=1&pid=ImgDetMain" alt="Telegram" class="telegram-icon social-icon">
+    </a>
+
+    <a href="https://discord.gg/8nkXG24D" target="_blank">
+        <img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/discord_alt_macos_bigsur_icon_190236.png" alt="Discord" class="discord-icon social-icon">
+    </a>
+    
+    <a href="https://www.youtube.com/channel/UCMnL8E593R05RIHvROgVJXw" target="_blank">
+        <img src="https://th.bing.com/th/id/OIP.pGpI5BwqO2ZEja60q2CygQHaHa?rs=1&pid=ImgDetMain" alt="Youtube" class="youtube-icon social-icon">
+    </a>
+
+    <audio id="backgroundMusic" loop>
+        <source src="path/to/your/music.mp3" type="audio/mpeg">
+        Ваш браузер не підтримує аудіо.
+    </audio>
+
+    <div id="infoMessage">Ми включаем вам відео CUMBACK кожні 5 хвилин, так як це є безкоштовна інтеграція для NEKOGLAI.</div>
+    <img id="infoIcon" src="https://e7.pngegg.com/pngimages/319/686/png-clipart-computer-icons-scalable-graphics-information-system-information-overload-black-and-white-system-information.png" alt="Info Icon">
+
+    <script>
+        const scoreKey = 'coinScore';
+        const remainingClicksKey = 'remainingClicks';
+        const premiumKey = 'premiumStatus';
+
+        let coinScore = localStorage.getItem(scoreKey) ? parseInt(localStorage.getItem(scoreKey)) : 0;
+        let remainingClicks = localStorage.getItem(remainingClicksKey) ? parseInt(localStorage.getItem(remainingClicksKey)) : 500;
+        let premiumStatus = localStorage.getItem(premiumKey) === 'true';
+
+        document.getElementById('coinCount').textContent = coinScore;
+        document.getElementById('remainingClicks').textContent = remainingClicks;
+
+        // Відтворення фонової музики
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        backgroundMusic.volume = 0.5; // Регулювання гучності
+        backgroundMusic.play();
+
+        document.getElementById('clickButton').addEventListener('click', function() {
+            if (remainingClicks > 0) {
+                coinScore++;
+                remainingClicks--;
+                document.getElementById('coinCount').textContent = coinScore;
+                document.getElementById('remainingClicks').textContent = remainingClicks;
+                
+                // Зберігання даних у localStorage
+                localStorage.setItem(scoreKey, coinScore);
+                localStorage.setItem(remainingClicksKey, remainingClicks);
+            } else {
+                alert('Ви використали всі кліки!');
+            }
+        });
+
+        document.getElementById('promoButton').addEventListener('click', function() {
+            const promoCode = document.getElementById('promoCodeInput').value;
+            if (promoCode === 'BOOM') {
+                coinScore += 100; // Додати 100 монет
+                document.getElementById('coinCount').textContent = coinScore;
+                localStorage.setItem(scoreKey, coinScore);
+                alert('Промокод активовано!');
+            } else {
+                alert('Невірний промокод!');
+            }
+        });
+
+        document.getElementById('buyPremiumButton').addEventListener('click', function() {
+            if (coinScore >= 1000 && !premiumStatus) {
+                coinScore -= 1000; // Витратити 1000 монет
+                premiumStatus = true;
+                alert('Premium придбано!');
+                document.getElementById('coinCount').textContent = coinScore;
+                localStorage.setItem(scoreKey, coinScore);
+                localStorage.setItem(premiumKey, premiumStatus);
+            } else if (premiumStatus) {
+                alert('Ви вже маєте Premium!');
+            } else {
+                alert('Не вистачає монет для покупки Premium!');
+            }
+        });
+
+        document.getElementById('buyPremiumPlusButton').addEventListener('click', function() {
+            if (coinScore >= 5000 && premiumStatus) {
+                coinScore -= 5000; // Витратити 5000 монет
+                alert('Premium Plus придбано!');
+                document.getElementById('coinCount').textContent = coinScore;
+                localStorage.setItem(scoreKey, coinScore);
+            } else if (!premiumStatus) {
+                alert('Спочатку потрібно купити Premium!');
+            } else {
+                alert('Не вистачає монет для покупки Premium Plus!');
+            }
+        });
+
+        // Відображення інформаційного повідомлення
+        const infoIcon = document.getElementById('infoIcon');
+        const infoMessage = document.getElementById('infoMessage');
+
+        infoIcon.addEventListener('click', function() {
+            infoMessage.style.display = 'block';
+            setTimeout(() => {
+                infoMessage.style.bottom = '50px'; // Показати повідомлення
+            }, 100);
+        });
+
+        // Сховати повідомлення при кліку
+        infoMessage.addEventListener('click', function() {
+            infoMessage.style.bottom = '-100px'; // Сховати повідомлення
+            setTimeout(() => {
+                infoMessage.style.display = 'none';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
